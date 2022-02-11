@@ -1,6 +1,8 @@
 //import topics from "./mocks/data";
 
-const topics = ["JAVASCRIPT", "BOOTSTRAP", "TECHNOLOGY", "JQUERY", "NODE.JS"];
+//const topics = ["JAVASCRIPT", "BOOTSTRAP", "TECHNOLOGY", "JQUERY", "NODE.JS"];
+
+import axios from "axios";
 
 const Tabs = (topics) => {
   // TASK 3
@@ -46,7 +48,10 @@ const Tabs = (topics) => {
   return topicsEl;
 };
 
-const tabsAppender = (selector) => {
+for (let i = 0; i < topics.length; i++) {
+  tabsAppender(topics[i]);
+
+const tabsAppender = (topics) => {
   // TASK 4
   // ---------------------
   // Implement this function which takes a css selector as its only argument.
@@ -54,6 +59,12 @@ const tabsAppender = (selector) => {
   // Find the array of topics inside the response, and create the tabs using the Tabs component.
   // Append the tabs to the element in the DOM that matches the selector passed to the function.
   //
+  axios
+    .get(`http://localhost:5000/api/topics`)
+    .then((resp) => {
+      document.querySelector(".topics").appendChild(Tabs(resp.data));
+    })
+    .catch((err) => console.error(err));
 };
 
 export { Tabs, tabsAppender };
