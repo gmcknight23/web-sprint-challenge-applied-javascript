@@ -1,3 +1,7 @@
+//import topics from "./mocks/data";
+
+const topics = ["JAVASCRIPT", "BOOTSTRAP", "TECHNOLOGY", "JQUERY", "NODE.JS"];
+
 const Tabs = (topics) => {
   // TASK 3
   // ---------------------
@@ -13,7 +17,34 @@ const Tabs = (topics) => {
   //   <div class="tab">technology</div>
   // </div>
   //
-}
+  const topicsEl = document.createElement("div");
+  const topic1 = document.createElement("div");
+  const topic2 = document.createElement("div");
+  const topic3 = document.createElement("div");
+  const topic4 = document.createElement("div");
+  const topic5 = document.createElement("div");
+
+  topicsEl.classList.add("topics");
+  topic1.classList.add("tab");
+  topic2.classList.add("tab");
+  topic3.classList.add("tab");
+  topic4.classList.add("tab");
+  topic5.classList.add("tab");
+
+  topic1.textContent = topics[0];
+  topic2.textContent = topics[1];
+  topic3.textContent = topics[2];
+  topic4.textContent = topics[3];
+  topic5.textContent = topics[4];
+
+  topicsEl.appendChild(topic1);
+  topicsEl.appendChild(topic2);
+  topicsEl.appendChild(topic3);
+  topicsEl.appendChild(topic4);
+  topicsEl.appendChild(topic5);
+
+  return topicsEl;
+};
 
 const tabsAppender = (selector) => {
   // TASK 4
@@ -23,6 +54,6 @@ const tabsAppender = (selector) => {
   // Find the array of topics inside the response, and create the tabs using the Tabs component.
   // Append the tabs to the element in the DOM that matches the selector passed to the function.
   //
-}
+};
 
-export { Tabs, tabsAppender }
+export { Tabs, tabsAppender };
