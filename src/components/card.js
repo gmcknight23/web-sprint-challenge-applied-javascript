@@ -30,25 +30,29 @@ const Card = (article) => {
   cardHeadline.classList.add("headline");
   cardAuthorEl.classList.add("author");
   imgContainer.classList.add("img-container");
-
-  cardEl.appendChild(cardHeadline);
-  cardEl.appendChild(cardAuthorEl);
-  cardAuthorEl.appendChild(imgContainer);
-  cardAuthorEl.appendChild(authorName);
-  imgContainer.appendChild(cardAuthorPhoto);
+  cardAuthorPhoto.setAttribute("src", article.authorPhoto);
 
   cardHeadline.textContent = article.headline;
   cardAuthorName.textContent = article.authorName;
-  cardAuthorPhoto.src = article.authorPhoto;
+
+  cardEl.appendChild(cardHeadline);
+  imgContainer.appendChild(cardAuthorPhoto);
+  cardAuthorEl.appendChild(imgContainer);
+  cardAuthorEl.appendChild(cardAuthorName);
+  cardEl.appendChild(cardAuthorEl);
 
   cardEl.addEventListener("click", () => {
-    console.log(cardHeadline);
+    console.log(article.headline);
   });
 
   return cardEl;
 };
 
-const cardAppender = (articles) => {
+// for (let i = 0; i < articles.length; i++) {
+//   cardAppender(articles[i]);
+// }
+
+const cardAppender = (selector) => {
   // TASK 6
   // ---------------------
   // Implement this function that takes a css selector as its only argument.
@@ -57,10 +61,26 @@ const cardAppender = (articles) => {
   // Create a card from each and every article object in the response, using the Card component.
   // Append each card to the element in the DOM that matches the selector passed to the function.
   //
+
   axios
     .get(`http://localhost:5000/api/articles`)
     .then((resp) => {
-      document.querySelector(".card").appendChild(Card(resp.data));
+      console.log(resp.data);
+      const jsArticles = resp.data.articles.javascript;
+      const bootstrapArticles = resp.data.articles.bootstrap;
+      const techArticles = resp.data.articles.technology;
+      const jqArticles = resp.data.articles.jquery;
+      const nodeArticles = resp.data.articles.node;
+
+      const allArticles = jsArticles.concat(
+        bootstrapArticles,
+        techArticles,
+        jqArticles,
+        nodeArticles
+      );
+      for (let i = 0; i < allArticles.length; i++) {
+        document.querySelector(selector).appendChild(Card(allArticles[i]));
+      }
     })
     .catch((err) => console.error(err));
 };
